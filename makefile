@@ -23,13 +23,13 @@ deps-install:
 .PHONY: run-migration
 ## run-migrations: running migrations
 run-migration:
-	@migrate -database postgres://postgres:password@localhost:5432/simple_bank?sslmode=disable -path database/migration up
+	@migrate -database postgres://postgres:password@localhost:5432/simple_bank?sslmode=disable -path db/migration up
 
 .PHONY: create-migration
 ## create-migration: create migrations table
 create-migration:
 	@read -p "migration name ? : " migration_name \
-	&& migrate create -ext sql -dir database/migration "$${migration_name}"
+	&& migrate create -ext sql -dir db/migration "$${migration_name}"
 
 .PHONY: lint-check
 ## lint-check: checking code with golangci-lint

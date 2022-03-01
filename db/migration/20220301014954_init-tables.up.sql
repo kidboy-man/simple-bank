@@ -1,28 +1,29 @@
 CREATE TABLE "accounts" (
-  "id" int PRIMARY KEY,
-  "full_name" varchar,
-  "email" varchar UNIQUE,
-  "phone_number" varchar UNIQUE,
-  "pin" varchar,
-  "created_at" timestamp,
-  "updated_at" timestamp,
-  "deleted_at" timestamp
+  "id" bigserial PRIMARY KEY,
+  "full_name" varchar NOT NULL,
+  "email" varchar NOT NULL UNIQUE,
+  "phone_number" varchar NOT NULL UNIQUE,
+  "pin" varchar NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT NOW(),
+  "updated_at" timestamptz,
+  "deleted_at" timestamptz
 );
 
 CREATE TABLE "transactions" (
-  "id" SERIAL PRIMARY KEY,
-  "currency" varchar,
-  "amount" int,
-  "kind" int,
-  "from_account_id" int,
-  "to_account_id" int,
-  "created_at" timestamp
+  "id" bigserial PRIMARY KEY,
+  "currency" varchar NOT NULL,
+  "amount" bigint NOT NULL,
+  "kind" bigint NOT NULL,
+  "from_account_id" bigint,
+  "to_account_id" bigint,
+  "created_at" timestamptz NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE "exchanges" (
-  "from_currency" varchar,
-  "to_currency" varchar,
-  "rate" decimal(1000,2),
+  "from_currency" varchar NOT NULL,
+  "to_currency" varchar NOT NULL,
+  "rate" decimal(1000,2) NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT NOW(),
   unique ("from_currency", "to_currency")
 );
 
